@@ -1,0 +1,55 @@
+# Windows / OS X / IDEs / Editores
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+.env
+.env.*
+!.env.example
+
+# --- Backend (Laravel) ---
+/backend/.env
+/backend/.env.backup
+/backend/.env.production
+/backend/vendor/
+/backend/node_modules/
+/backend/public/build/
+/backend/public/hot/
+/backend/public/storage
+/backend/storage/*.key
+/backend/storage/pail/
+/backend/.phpunit.result.cache
+/backend/.phpunit.cache/
+/backend/.phpactor.json
+/backend/.codex
+/backend/.cursor/
+/backend/.nova
+/backend/.zed
+/backend/auth.json
+/backend/_ide_helper.php
+/backend/Homestead.json
+/backend/Homestead.yaml
+/backend/database/*.sqlite
+
+# --- Frontend (React) ---
+/frontend/node_modules/
+/frontend/.pnp
+/frontend/.pnp.js
+/frontend/coverage/
+/frontend/build/
+/frontend/.env.local
+/frontend/.env.development.local
+/frontend/.env.test.local
+/frontend/.env.production.local
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+
+# --- Extensão ---
+/extensão/*.crx
+/extensão/*.zip

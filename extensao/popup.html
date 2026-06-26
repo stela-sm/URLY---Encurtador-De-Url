@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Urly</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      /* Neutrals */
+      --color-white: #ffffff;
+      --color-gray-400: #838383;
+      --color-gray-200: #edf0eb;
+
+      /* Green scale */
+      --green-950: #1a4d22;
+      --green-800: #245f2e;
+      --green-700: #2d7a3a;
+      --green-600: #5a8c5e;
+      --green-500: #7aaa7e;
+      --green-400: #8ec98a;
+      --green-300: #c3e0b0;
+      --green-200: #e8f5e1;
+      --green-150: #e0f0d8;
+      --green-100: #f0f8ec;
+      --green-75: #f7fbf5;
+      --green-50: #f4f7f2;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    #spinner {
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .success-check {
+      width: 48px;
+      height: 48px;
+
+      stroke-dasharray: 100;
+      stroke-dashoffset: 100;
+
+      animation:
+        draw-check 0.6s ease forwards,
+        pop 0.3s ease 0.6s;
+    }
+
+    @keyframes draw-check {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    @keyframes pop {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.15);
+      }
+
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--green-50);
+      width: 360px;
+      min-height: 320px;
+      overflow: hidden;
+    }
+
+    .popup {
+      background: var(--color-white);
+      width: 360px;
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px 14px;
+      background: var(--color-white);
+      border-bottom: 1px solid var(--color-gray-200);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--green-200);
+      border: 1.5px solid var(--green-300);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-icon svg {
+      color: var(--green-700);
+    }
+
+    .logo-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--green-950);
+      letter-spacing: -0.3px;
+    }
+
+    .header-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid var(--green-300);
+      background: var(--green-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .header-avatar:hover {
+      background: var(--green-150);
+    }
+
+    .header-avatar svg {
+      color: var(--green-600);
+    }
+
+    /* Main content */
+    .content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 28px 24px 24px;
+      gap: 0;
+    }
+
+    /* Success icon */
+    .success-ring {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: var(--green-200);
+      border: 2px solid var(--green-300);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin-bottom: 18px;
+      animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .success-ring::before {
+      content: '';
+      position: absolute;
+      inset: -6px;
+      border-radius: 50%;
+      border: 1.5px dashed var(--green-300);
+      opacity: 0.6;
+      animation: spin 12s linear infinite;
+    }
+
+    @keyframes popIn {
+      from {
+        transform: scale(0.7);
+        opacity: 0;
+      }
+
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .success-check {
+      width: 28px;
+      height: 28px;
+      color: var(--green-700);
+    }
+
+    /* Text */
+    .headline {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--green-950);
+      text-align: center;
+      letter-spacing: -0.2px;
+      margin-bottom: 6px;
+    }
+
+    .subline {
+      font-size: 13px;
+      color: var(--green-500);
+      text-align: center;
+      font-weight: 400;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+
+    /* URL card */
+    .url-card {
+      width: 100%;
+      background: var(--green-75);
+      border: 1.5px solid var(--green-300);
+      border-radius: 12px;
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .url-link-icon {
+      width: 34px;
+      height: 34px;
+      min-width: 34px;
+      border-radius: 8px;
+      background: var(--green-200);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .url-link-icon svg {
+      color: var(--green-700);
+    }
+
+    .url-text {
+      flex: 1;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--green-950);
+      letter-spacing: -0.1px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .btn-copy {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 8px;
+      border: 1.5px solid var(--green-300);
+      background: var(--color-white);
+      color: var(--green-700);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .btn-copy:hover {
+      background: var(--green-100);
+      border-color: var(--green-400);
+    }
+
+    .btn-copy.copied {
+      background: var(--green-700);
+      color: var(--color-white);
+      border-color: var(--green-700);
+    }
+
+    .btn-copy svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    .btn-qr {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      border-radius: 8px;
+      background: var(--green-700);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+
+    .btn-qr:hover {
+      background: var(--green-800);
+    }
+
+    .btn-qr svg {
+      color: var(--color-white);
+    }
+
+    /* Footer action */
+    .btn-new {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 11px 16px;
+      border-radius: 50px;
+      border: 1.5px solid var(--green-300);
+      background: transparent;
+      color: var(--green-700);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+      margin-top: 4px;
+    }
+
+    .btn-new:hover {
+      background: var(--green-100);
+      border-color: var(--green-400);
+    }
+
+    .btn-new svg {
+      width: 16px;
+      height: 16px;
+    }
+
+    /* Copied toast */
+    .toast {
+      position: absolute;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px);
+      background: var(--green-950);
+      color: var(--color-white);
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px 16px;
+      border-radius: 50px;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .cta {
+      margin-top: 5px;
+      color: var(--color-gray-400);
+      cursor: pointer;
+      transition: color 0.15s;
+    }
+
+    .cta:hover {
+      color: var(--green-700);
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="popup">
+    <div class="header">
+      <div class="logo">
+        <div class="logo-icon">
+         <img src="./icon_16.png" alt="" srcset="">
+        </div>
+        <span class="logo-text">urly</span>
+      </div>
+
+       <button class="header-avatar" title="Perfil" id="profile-button">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+          stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+      </button>
+    
+    
+    </div>
+
+    <div class="content">
+
+
+      <div class="success-ring" id="ring">
+        <svg class="success-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+      </div>
+
+
+
+      <h1 class="headline" id="headline">Sua URL foi encurtada!</h1>
+      <p class="subline" id="subline">Já está na sua área de transferência<br>e pronta para compartilhar.</p>
+
+      <div class="url-card">
+        <div class="url-link-icon">
+         <img src="./icon_16.png" alt="" srcset="">
+        </div>
+        <span class="url-text" id="shorten-url-span">urly.io/2ds43</span>
+        <button class="btn-copy" id="copyBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+          </svg>
+          Copiar
+        </button>
+        <button class="btn-qr" title="QR Code" id="qrBtn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7" />
+            <rect x="14" y="3" width="7" height="7" />
+            <rect x="3" y="14" width="7" height="7" />
+            <rect x="14" y="14" width="3" height="3" />
+            <rect x="18" y="14" width="3" height="3" />
+            <rect x="14" y="18" width="3" height="3" />
+            <rect x="18" y="18" width="3" height="3" />
+          </svg>
+        </button>
+
+      </div>
+
+      <a class="cta" id="redirect" href="http://localhost:3000" target="_blank" rel="noopener noreferrer"
+    >Mais Recursos</a>
+    
+  </div>
+  <script src="main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+.history-container {
+  width: 100%;
+}
+
+.history-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  border: var(--border-subtle);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.history-table thead {
+  background: var(--color-gray-100);
+}
+
+.history-table th {
+  padding: 0.875rem 1.25rem;
+  text-align: left;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-gray-400);
+  border-bottom: var(--border-subtle);
+}
+
+.history-table td {
+  padding: 1rem 1.25rem;
+  border-bottom: var(--border-subtle);
+  color: var(--color-black);
+  font-size: 0.9375rem;
+  vertical-align: middle;
+}
+
+.history-table tbody tr {
+  transition: background-color var(--transition-fast);
+}
+
+.history-table tbody tr:hover {
+  background: var(--green-75);
+}
+
+.history-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.history-table td:first-child {
+  max-width: 280px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--color-gray-400);
+}
+
+.history-table td:nth-child(2) {
+  font-weight: 500;
+  color: var(--green-800);
+}
+
+.history-table td:last-child {
+  width: 48px;
+  text-align: center;
+}
+
+.copy-icon {
+  flex-shrink: 0;
+  cursor: pointer;
+  color: var(--color-gray-400);
+  transition: color var(--transition-fast);
+}
+
+.copy-icon:hover {
+  color: var(--green-700);
+}
+
+.warning-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  padding: 1rem 1.125rem;
+  background: var(--green-100);
+  border: 1px solid var(--green-200);
+  border-radius: var(--radius-md);
+  color: var(--green-950);
+}
+
+.warning-icon {
+  flex-shrink: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--green-700);
+}
+
+.warning-box p {
+  margin: 0;
+  font-size: 0.875rem;
+  line-height: 1.55;
+  color: var(--green-800);
+}
+
+@media (max-width: 640px) {
+  .history-table th,
+  .history-table td {
+    padding: 0.75rem 1rem;
+  }
+
+  .history-table th:first-child,
+  .history-table td:first-child {
+    max-width: 120px;
+  }
+}
